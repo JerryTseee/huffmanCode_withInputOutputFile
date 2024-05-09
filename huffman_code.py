@@ -20,7 +20,7 @@ for i in string:
         dic[i] += 1
 
 #sort the values in ascending order, and then sort the keys in ascending order of ASCII code if they have the same count
-dic = dict( sorted(dic.items(), key=lambda item: (item[1], ord(item[0]) )) )
+dic = dict( sorted(dic.items(), key=lambda item: (item[1], ord(item[0]) )) )#(sort frequency first, then sort ASCII code)
 
 
 #build the huffman tree
@@ -30,7 +30,7 @@ while len(nodes) > 1:
     left = nodes.pop(0)
     right = nodes.pop(0)
 
-    #check ASCII Code first, make sure value of left node must be smaller than the right node
+    #check ASCII Code first, make sure ASCII code value of left node must be smaller than the right node
     if left.char > right.char:
         temp = left
         left = right
@@ -44,7 +44,7 @@ while len(nodes) > 1:
     parent.char = left.char#new node value must be the left(smallest value) node
     parent.left = left
     parent.right = right
-    nodes.append(parent)
+    nodes.append(parent)#append it at the end
 
     #everytime, we need to sort it again
     #sort the frequency first, and then the ASCII code
@@ -59,13 +59,13 @@ def printhuff(node, code = ""):
     elif node.left == None and node.right == None: #then this node is a leave
         dic2[node.char] = code
     else:
-        printhuff(node.left, code + "0")#go to left child
-        printhuff(node.right, code + "1")#go to right child
+        printhuff(node.left, code + "0")#go to left child, it is "0"
+        printhuff(node.right, code + "1")#go to right child, it is "1"
 
 #call the function
 printhuff(nodes[0])
 
-#sort according to ASCII code, to print out the output in ascending order of ASCII code.
+#sort according to ASCII code, to print out the output characters in ascending order of ASCII code.
 dic3 = dict( sorted(dic2.items(), key=lambda item: (ord(item[0])) ) )
 
 
